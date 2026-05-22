@@ -37,6 +37,25 @@ No wearable. No self-report. No GPS. **The door itself is the oracle.**
 └────────────────────────────────────────┘
 ```
 
+## Protocol Comparison
+
+PoPB introduces a new verification dimension that no existing consensus protocol addresses: **proof of human physical behavior**.
+
+| Protocol | PoPB | PoW | PoS | PoPW |
+|:---|:---|:---|:---|:---|
+| Verification Object | Physical Behavior Data | Computational Power | Staked Assets | Physical Workload |
+| Data Source | Face Recognition + Behavior Tracking | Hash Computation | On-chain Staking | Location Data |
+| Privacy Protection | Aggregated Anonymization | None | None | Partial |
+| 7-Year Verification | ✅ | ❌ | ❌ | ❌ |
+| AI Verification Layer | ✅ 9 Agents | ❌ | ❌ | ❌ |
+
+**Key Differentiators:**
+
+- **PoW** verifies that a machine solved a puzzle. PoPB verifies that a human performed an action.
+- **PoS** secures a network via capital. PoPB secures behavioral data via physical access.
+- **PoPW** maps device locations. PoPB maps **what the body did at that location.**
+- Only PoPB maintains a **7-year continuous verification record** with **multi-agent cross-validation.**
+
 ## Core Properties
 
 | Property | Mechanism |
