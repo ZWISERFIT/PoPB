@@ -1,0 +1,138 @@
+name: 🧪 PoPB Improvement Proposal (PIP)
+description: Propose a change or extension to the PoPB protocol specification
+title: "[PIP] <short descriptive title>"
+labels: ["pip", "protocol"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## PoPB Improvement Proposal
+
+        Follow the PIP process defined in the protocol specification (Section 7.1).
+        All proposals go through: Idea → Draft → Review → Last Call → Accepted → Deployed.
+
+  - type: input
+    id: pip-number
+    attributes:
+      label: PIP Number
+      description: Assigned by maintainers. Leave blank for initial submission.
+      placeholder: "PIP-N"
+    validations:
+      required: false
+
+  - type: dropdown
+    id: pip-stage
+    attributes:
+      label: Current Stage
+      description: What stage is this proposal at?
+      options:
+        - "PIP-0: Idea / Informal Discussion"
+        - "PIP-1: Draft"
+        - "PIP-2: Review (ready for technical review)"
+      default: 0
+    validations:
+      required: true
+
+  - type: dropdown
+    id: pip-category
+    attributes:
+      label: Category
+      description: Which layer of the protocol does this proposal affect?
+      options:
+        - "Layer 1: Hardware Trust Root"
+        - "Layer 2: Data Capture / Sensor Fusion"
+        - "Layer 3: Privacy (ZK/MPC/DID)"
+        - "Layer 4: Verification / Validator Network"
+        - "Layer 5: Application/SDK"
+        - "Cross-layer / Governance"
+      default: 0
+    validations:
+      required: true
+
+  - type: textarea
+    id: abstract
+    attributes:
+      label: Abstract
+      description: One-paragraph summary of the proposal.
+      placeholder: "What does this proposal do, in plain language?"
+    validations:
+      required: true
+
+  - type: textarea
+    id: motivation
+    attributes:
+      label: Motivation
+      description: Why is this change necessary? What problem does it solve?
+      placeholder: |
+        - Current limitation / gap
+        - Use case that is not supported
+        - Security / efficiency improvement
+    validations:
+      required: true
+
+  - type: textarea
+    id: specification
+    attributes:
+      label: Specification
+      description: Technical description of the proposed change. Be specific.
+      placeholder: |
+        - New data structures (JSON Schema)
+        - Changed validation rules
+        - New or modified protocol message types
+      render: markdown
+    validations:
+      required: true
+
+  - type: textarea
+    id: rationale
+    attributes:
+      label: Design Rationale
+      description: Why this approach over alternatives?
+      placeholder: "What alternatives were considered? Why was this approach chosen?"
+    validations:
+      required: false
+
+  - type: textarea
+    id: backward-compatibility
+    attributes:
+      label: Backward Compatibility
+      description: Does this break existing proofs / implementations?
+      placeholder: |
+        - Compatible (no changes to existing proof format)
+        - Breaking (existing proofs need re-validation)
+        - Mitigation strategy for backward compatibility
+    validations:
+      required: true
+
+  - type: textarea
+    id: implementation
+    attributes:
+      label: Reference Implementation
+      description: Link to a working implementation (if available).
+      placeholder: "PR # or commit hash"
+    validations:
+      required: false
+
+  - type: textarea
+    id: security
+    attributes:
+      label: Security Considerations
+      description: What security implications does this change have?
+      placeholder: "Threat model changes, new attack surfaces, mitigations"
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Submission Checklist
+      description: Confirm you have completed these steps before submitting.
+      options:
+        - label: I have searched existing PIPs for prior art
+          required: true
+        - label: I have discussed this idea in the Protocol Discussions category first (PIP-0)
+          required: false
+        - label: I have included a concrete specification (not just an idea)
+          required: true
+        - label: I have considered backward compatibility impact
+          required: true
