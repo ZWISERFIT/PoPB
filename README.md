@@ -1,114 +1,156 @@
-# Proof of Physical Behavior Protocol — PoPB v0.1
+# PoPB — Proof of Physical Behavior
 
-> **A new protocol primitive: verify what humans physically do. Not where devices are.**
+> *"What TCP/IP did for the internet, PoPB does for human physical behavior data."*
+
+**PoPB (Proof of Physical Behavior)** is an open, hardware-anchored protocol for cryptographically verifiable human physical activity data. It bridges the gap between real-world human movement and on-chain verifiable proofs — enabling decentralized identity (DID), actuarial science, health analytics, and behavior-based value exchange while preserving user privacy and data sovereignty.
+
+---
+
+## 🎯 Why PoPB? — Model 5
+
+In March 2026, Multicoin Capital published a landmark thesis: **["RWAs Are Just Built Different"](https://multicoin.capital/2026/03/19/rwas-are-just-built-different/)** (2026.03.19), identifying four models of Real World Assets on-chain:
+
+```
+┌──────────────────────────────────────────────────────────────────┐
+│  Multicoin's RWA Taxonomy (2026)                                  │
+│                                                                   │
+│  Model 1: Tokenized Securities   — Stocks, bonds on-chain        │
+│  Model 2: Tokenized Commodities  — Gold, oil, carbon credits     │
+│  Model 3: Tokenized Real Estate  — Property fractionalization    │
+│  Model 4: Tokenized IP/Creative  — Royalties, patents, brands    │
+│                                                                   │
+│  ❓  What's missing?                                              │
+│                                                                   │
+│  Model 5: Tokenized HUMAN BEHAVIOR — Your body, your data,       │
+│           your value. The only RWA that grows with every move.   │
+│                                                                   │
+│  PoPB is Model 5.                                                 │
+└──────────────────────────────────────────────────────────────────┘
+```
+
+**The four models tokenize static assets. PoPB tokenizes the one asset that compounds:** ***you, moving.** *  Every squat, every heartbeat, every calorie burned becomes a cryptographically verifiable, privacy-preserving proof — the fifth category Multicoin's framework didn't account for.
+
+---
+
+## 🏗️ Architecture — Five-Layer Protocol Stack
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│  Layer 5: APPLICATION LAYER                                  │
+│  DID Verification · Insurance Actuarial · Behavior Exchange │
+├─────────────────────────────────────────────────────────────┤
+│  Layer 4: VERIFICATION LAYER                                 │
+│  Proof Aggregation · Validator Network · Slashing           │
+├─────────────────────────────────────────────────────────────┤
+│  Layer 3: PRIVACY LAYER                                      │
+│  MPC Data Sharding · Zero-Knowledge Proofs · DID Sovereignty│
+├─────────────────────────────────────────────────────────────┤
+│  Layer 2: DATA CAPTURE LAYER                                 │
+│  15-Dimensional Sensor Fusion · Signal Processing Pipeline  │
+├─────────────────────────────────────────────────────────────┤
+│  Layer 1: HARDWARE TRUST ROOT                                │
+│  Gate Firmware · Secure Boot · TEE · Device Attestation     │
+└─────────────────────────────────────────────────────────────┘
+```
+
+| Layer | Name | Core Function | Why It Can't Be Bypassed |
+|-------|------|---------------|--------------------------|
+| **L1** | Hardware Trust Root | Device identity + TEE-based attestation | Device private key never leaves secure element. No hardware = no valid proof. |
+| **L2** | Data Capture | 15-dimensional sensor fusion (IMU, BIA, ECG, ToF, IR...) | Cross-modal consistency across 15 sensor dimensions is computationally infeasible to simulate. |
+| **L3** | Privacy | MPC data sharding + ZK-proof wrapping | Raw data is MPC-sharded across independent parties. ZWF holds < K shares — structurally cannot read user data. |
+| **L4** | Verification | Decentralized validator network with staking/slashing | Trustless verification. Any node can independently validate proofs. |
+| **L5** | Application | DID credentials, insurance, behavior marketplace | Applications consume *verified* proofs only. No backdoor. |
+
+---
+
+## 🔐 The Moat: Why PoPB Cannot Be Copied
+
+PoPB's competitive advantage is **structural**, not executional:
+
+```
+Hardware Trust Root × Time Uncompressible × Verification Network Effect
+= Unbypassable Competitive Moat
+```
+
+| Attack Vector | Cost | Time | PoPB Defense |
+|---------------|------|------|-------------|
+| Write a software clone | ~$50K | 3 months | **❌ Protocol-level invalid** (no hardware root = no valid proof) |
+| Deploy 500+ gyms + custom hardware | ~$50M+ | **7+ years** | Time is uncompressible |
+| AI-generate synthetic behavior data | ~$500K | 6 months | **15-dim sensor fusion consistency check** catches AI fakes |
+| Build alternative verification standard | ~$10M | 2 years | **Network effect + switching costs** exceed build costs |
+
+> **Investor thesis:** This isn't "we do it better." This is "you *cannot* do it without 7 years of real sensor data and deployed hardware."
+
+---
+
+## 📜 License — Open Protocol, Dual License
+
+| Component | License | Rationale |
+|-----------|---------|-----------|
+| **Protocol Specification** (`spec/`) | [MIT](LICENSE) | Anyone can implement, extend, or fork. Maximum openness. |
+| **Reference Implementation** (`verifier/`) | [Apache 2.0](LICENSE) | Patent grant included. Protects ecosystem from patent lawsuits. |
+| **Hardware Design Files** | CERN OHL v2 (Permissive) | Open hardware, attribution required. |
+
+**Patent Non-Assertion Pledge:** ZWISERFIT pledges not to assert patents against conformant implementations of the PoPB protocol.
+
+---
+
+## 🚀 Quick Start
+
+```bash
+# Clone the repo
+git clone https://github.com/ZWISERFIT/PoPB.git
+cd PoPB
+
+# Read the specification
+cat spec/PoPB-v1.0.0.md
+
+# Run the attestation verifier (proof-of-concept)
+cd verifier
+pip install -r requirements.txt
+python popb_verify.py --proof example_proof.json
+```
+
+---
+
+## 📂 Repository Structure
+
+```
+PoPB/
+├── README.md                    # This file
+├── LICENSE                      # MIT (spec) + Apache 2.0 (ref impl)
+├── spec/
+│   └── PoPB-v1.0.0.md          # Full protocol specification v1.0.0
+└── verifier/
+    ├── README.md                # Attestation Verifier documentation
+    ├── popb_verify.py           # CLI verifier (minimal PoC)
+    ├── requirements.txt         # Python dependencies
+    └── example_proof.json       # Demo proof with simulated device signature
+```
+
+---
+
+## 🌐 Protocol Status
+
+| Version | Date | Status |
+|---------|------|--------|
+| **v1.0.0** | 2026-06-02 | ✅ Published — Spec + Reference Verifier |
+| v1.1 | 2026-Q3 | 🔨 ZK-circuit v1 (Groth16), Private testnet |
+| v2.0 | 2027-Q1 | 📋 Mainnet validator network, EigenLayer AVS |
+
+---
+
+## 🔗 References
+
+- [Full Protocol Specification v1.0.0](spec/PoPB-v1.0.0.md)
+- [Multicoin Capital — "RWAs Are Just Built Different" (2026.03.19)](https://multicoin.capital/2026/03/19/rwas-are-just-built-different/)
+- [W3C Decentralized Identifiers (DIDs) v1.0](https://www.w3.org/TR/did-core/)
+- [EigenLayer Whitepaper](https://docs.eigenlayer.xyz/)
+
+---
+
+> **PoPB v1.0 — Published 2026-06-02**
 >
-> This is not PoPW. This is not PoS. This is a different layer.
-
----
-
-## What PoPB Solves
-
-```
-PoPW (Proof of Physical Work)  → Verifies device location/existence
-PoS  (Proof of Stake)          → Verifies capital commitment  
-PoPB (Proof of Physical Behavior) → Verifies human body actions
-```
-
-**The question PoPB answers:** Did a specific human actually enter this door, at this time, with this body?
-
-No wearable. No self-report. No GPS. **The door itself is the oracle.**
-
-## Protocol Architecture
-
-```
-┌────────────────────────────────────────┐
-│            APPLICATION LAYER            │
-│  Insurance · Health Data · Fitness dApp │
-├────────────────────────────────────────┤
-│         VERIFICATION LAYER (PoPB)      │
-│  9 AI Agent Governance                │
-│  Anti-Sybil · 15 sensors/tx            │
-│  DID encryption · MPC privacy          │
-│  Cross-validation matrix              │
-├────────────────────────────────────────┤
-│           PHYSICAL LAYER                │
-│  Door turnstiles · Facial recognition  │
-│  15 sensors · 100% capture · 7 years   │
-└────────────────────────────────────────┘
-```
-
-## Protocol Comparison
-
-PoPB introduces a new verification dimension that no existing consensus protocol addresses: **proof of human physical behavior**.
-
-| Protocol | PoPB | PoW | PoS | PoPW |
-|:---|:---|:---|:---|:---|
-| Verification Object | Physical Behavior Data | Computational Power | Staked Assets | Physical Workload |
-| Data Source | Face Recognition + Behavior Tracking | Hash Computation | On-chain Staking | Location Data |
-| Privacy Protection | Aggregated Anonymization | None | None | Partial |
-| 7-Year Verification | ✅ | ❌ | ❌ | ❌ |
-| AI Verification Layer | ✅ 9 Agents | ❌ | ❌ | ❌ |
-
-**Key Differentiators:**
-
-- **PoW** verifies that a machine solved a puzzle. PoPB verifies that a human performed an action.
-- **PoS** secures a network via capital. PoPB secures behavioral data via physical access.
-- **PoPW** maps device locations. PoPB maps **what the body did at that location.**
-- Only PoPB maintains a **7-year continuous verification record** with **multi-agent cross-validation.**
-
-## Core Properties
-
-| Property | Mechanism |
-|----------|-----------|
-| **Unforgeable** | 15 sensors per entry (face, weight, time, gait). Not possible to spoof. |
-| **Privacy-Preserving** | DID-bound. MPC computation. User authorizes every data read. |
-| **24×7 Verifiable** | 9 AI agents monitor node health. SOS fallback (30s sync cycle). |
-| **Governance-Auditable** | Cross-validation matrix: every metric independently verified by separate agent. |
-| **Self-Sovereign** | 1 physical node = 1 validator. No centralized oracle. |
-
-## Data Lifecycle
-
-```
-Person → Door Turnstile (15 raw signals)
-              ↓
-         Agent Layer (Tristan/Ethan/Momo)
-              ↓ Anti-Sybil gate
-         DID-encrypted payload
-              ↓
-         On-Chain Proof (PoPB)
-              ↓ Timestamp + Hash
-    ┌─────────┼─────────┐
-    ↓         ↓         ↓
-  User    Data Buyer   Builder
-Dashboard   API        dApps
-```
-
-## Network Status
-
-| Metric | Value |
-|--------|-------|
-| Active Nodes | 1 (Wanjiang, Dongguan) |
-| Runtime | 7 years (2019–) |
-| Members | 118+ |
-| Capture Rate | 100% |
-| Sensors/Entry | 15 |
-| AI Agents | 9 (24×7) |
-
-## Attestation Flow
-
-[→ Full Attestation Flow](./attestation-flow.md)
-
-Every entry event produces a chain-verifiable attestation: `SHA256(device_id + timestamp + sensor_array + DID)`. Attestations are cross-validated by at least two independent Agent paths before acceptance.
-
----
-
-## Related Repos
-
-- [agents](https://github.com/zwiserfit/agents) — AI Agent Army governance
-- [data](https://github.com/zwiserfit/data) — 7-year behavioral data statistics
-- [investor](https://github.com/zwiserfit/investor) — VC narrative funnel
-
----
-
-*PoPB Protocol v0.1 — Work in Progress*
-*Maintained by: ZWISERFIT Tech Architecture (Tristan) + Trust Verification (Ethan)*
+> *An open protocol. A shared language. A trustless bridge between the physical and the digital.*
+>
+> — ZWISERFIT / PoPB Protocol Authors
