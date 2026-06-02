@@ -1,0 +1,3 @@
+# PoPB Attestation Verifier — Dependencies
+# Uses Python cryptography library (already available on most systems)
+cryptography>=41.0.0
