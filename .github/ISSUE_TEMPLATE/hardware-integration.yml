@@ -1,0 +1,132 @@
+name: 🔧 Hardware Integration Request
+description: Request to integrate a new device/sensor as a PoPB-compatible trust root
+title: "[Integration] <device manufacturer / model>"
+labels: ["integration", "hardware"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Hardware Integration Request
+
+        This form is for device manufacturers seeking to make their hardware PoPB-compatible.
+        All integrated devices must pass the Hardware Certification Program (v1.0).
+
+  - type: input
+    id: manufacturer
+    attributes:
+      label: Manufacturer Name
+      description: Legal entity name
+      placeholder: "e.g., ZWISERFIT, FitBit, Nordic Semiconductor"
+    validations:
+      required: true
+
+  - type: input
+    id: device-model
+    attributes:
+      label: Device Model
+      description: Model name and revision
+      placeholder: "e.g., Gate-Sensor-Gen2"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: form-factor
+    attributes:
+      label: Form Factor
+      description: What type of device is this?
+      options:
+        - "Gate sensor (floor-mounted plate)"
+        - "Wearable (watch / band / ring)"
+        - "Smart equipment (bike / treadmill / rower)"
+        - "Environmental sensor (camera / lidar / radar)"
+        - "Other (describe below)"
+      default: 0
+    validations:
+      required: true
+
+  - type: textarea
+    id: sensors
+    attributes:
+      label: Available Sensor Dimensions
+      description: List the sensor modalities your device supports.
+      placeholder: |
+        e.g.:
+        - IMU (accelerometer + gyroscope), 200 Hz
+        - Bioimpedance (BIA), 50 Hz
+        - Pressure / strain gauge, 100 Hz
+        - Temperature, 10 Hz
+    validations:
+      required: true
+
+  - type: dropdown
+    id: secure-element
+    attributes:
+      label: Secure Element / TEE
+      description: Does the device have hardware-backed key storage?
+      options:
+        - "Yes — hardware secure element (ATECC608B or equivalent)"
+        - "Yes — TEE (ARM TrustZone / Intel SGX / similar)"
+        - "No — software-only key storage (not PoPB-compatible without additional hardware)"
+      default: 0
+    validations:
+      required: true
+
+  - type: input
+    id: certification-readiness
+    attributes:
+      label: Certification Readiness
+      description: Has the device passed any existing security certifications?
+      placeholder: "e.g., FIPS 140-2 Level 2, Common Criteria EAL4+"
+    validations:
+      required: false
+
+  - type: textarea
+    id: integration-scope
+    attributes:
+      label: Integration Scope
+      description: What layers of the PoPB stack are you targeting?
+      placeholder: |
+        - Layer 1 (Hardware Trust Root): Full attestation
+        - Layer 2 (Data Capture): Raw sensor data output
+        - Layer 3+ (Privacy/Verification): On-device ZK proof generation
+        - All five layers: Full PoPB-compatible device
+    validations:
+      required: true
+
+  - type: textarea
+    id: attestation-details
+    attributes:
+      label: Attestation Architecture
+      description: Describe how device identity is provisioned and attested.
+      placeholder: |
+        - Factory key provisioning process
+        - Certificate chain structure
+        - Secure boot implementation
+        - Firmware update mechanism
+    validations:
+      required: true
+
+  - type: textarea
+    id: data-sheet
+    attributes:
+      label: Technical Documentation
+      description: Links to datasheet, SDK, reference manual, or certification reports.
+      placeholder: "URLs to technical documentation"
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Submission Checklist
+      options:
+        - label: I represent the manufacturer or have written authorization to submit this request
+          required: true
+        - label: I have read the PoPB Hardware Certification Requirements (docs/hardware-certification.md)
+          required: true
+        - label: Device secure element or TEE supports Ed25519 signing
+          required: true
+        - label: Device supports secure boot chain with measured boot
+          required: false
+        - label: I understand that integration requires passing the formal certification process
+          required: true

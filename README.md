@@ -1,111 +1,122 @@
 # PoPB — Proof of Physical Behavior
 
-> *"What TCP/IP did for the internet, PoPB does for human physical behavior data."*
-
-**PoPB (Proof of Physical Behavior)** is an open, hardware-anchored protocol for cryptographically verifiable human physical activity data. It bridges the gap between real-world human movement and on-chain verifiable proofs — enabling decentralized identity (DID), actuarial science, health analytics, and behavior-based value exchange while preserving user privacy and data sovereignty.
+> *The open protocol for verifiable human physical activity. What TCP/IP did for data, PoPB does for your body.*
 
 ---
 
-## 🎯 Why PoPB? — Model 5
+## The Problem
 
-In March 2026, Multicoin Capital published a landmark thesis: **["RWAs Are Just Built Different"](https://multicoin.capital/2026/03/19/rwas-are-just-built-different/)** (2026.03.19), identifying four models of Real World Assets on-chain:
+100 squats in a gym at 08:00 UTC. Who proves they happened?
+
+Not the gym owner — they have an incentive to inflate. Not the app — your data is their ML training set. Not a DAO oracle — they can't sense the physical world.
+
+**Physical human behavior has no cryptographic truth anchor.** Every sensor data stream today is one SQL UPDATE away from being rewritten. This is not a security bug. It's an architectural gap.
+
+---
+
+## Multicoin's Four Models — And What They Missed
+
+In March 2026, Multicoin Capital published a landmark thesis — **["RWAs Are Just Built Different"](https://multicoin.capital/2026/03/19/rwas-are-just-built-different/)** — defining four ways to bring real-world assets on-chain:
+
+```
+        MULTICOIN'S RWA TAXONOMY (2026)
+  ┌────────────────────────────────────────────┐
+  │ Model 1: Tokenized Securities              │
+  │ Model 2: Tokenized Commodities             │
+  │ Model 3: Tokenized Real Estate             │
+  │ Model 4: Tokenized IP & Creative Works     │
+  ├────────────────────────────────────────────┤
+  │ ❓ What's missing?                          │
+  │                                            │
+  │ Human behavior never sits still long       │
+  │ enough to be "tokenized." It must be       │
+  │ *proven at the moment it happens.*          │
+  └────────────────────────────────────────────┘
+```
+
+Every model assumes: **"the asset exists before the proof."** A stock exists before you wrap it. Real estate exists before you fractionalize it.
+
+Physical behavior breaks this assumption. 100 squats exist **only** at the moment they happen. There is no "underlying" to cache, no custodian to hold, no price oracle to report.
+
+**The missing category: Model 5 — Physical-Native RWA.** Assets born on-chain because they're born in the physical world, proven by hardware, at the moment of occurrence.
+
+**PoPB is Model 5.**
+
+---
+
+## What PoPB Does — 30 Seconds
+
+```
+HUMAN    ═▶  HARDWARE SENSOR  ═▶  PROOF  ═▶  CHAIN
+│                                                
+│  ⚡ NFC tap triggers capture                    
+│  📡 15 sensors: IMU · BIA · ECG · ToF · IR     
+│  🔐 Secure Element signs at the moment          
+│  🛡️ MPC shards raw data, ZK wraps identity      
+│  ✅ Proof committed — the proof IS the asset     
+│                                                 
+└── No issuer. No custodian. No oracle.          
+```
+
+One takeaway: **the proof is the asset.** There is no tokenization step. No custody handoff. The cryptographic attestation from the hardware trust root *is* the asset on-chain.
+
+---
+
+## Architecture at a Glance
 
 ```
 ┌──────────────────────────────────────────────────────────────────┐
-│  Multicoin's RWA Taxonomy (2026)                                  │
-│                                                                   │
-│  Model 1: Tokenized Securities   — Stocks, bonds on-chain        │
-│  Model 2: Tokenized Commodities  — Gold, oil, carbon credits     │
-│  Model 3: Tokenized Real Estate  — Property fractionalization    │
-│  Model 4: Tokenized IP/Creative  — Royalties, patents, brands    │
-│                                                                   │
-│  ❓  What's missing?                                              │
-│                                                                   │
-│  Model 5: Tokenized HUMAN BEHAVIOR — Your body, your data,       │
-│           your value. The only RWA that grows with every move.   │
-│                                                                   │
-│  PoPB is Model 5.                                                 │
+│                     PoPB PROTOCOL STACK                            │
+│                                                                    │
+│  L5 ┌──────────────────┐                                          │
+│     │  APPLICATION     │  DID · Insurance · Behavior Marketplace   │
+│     └──────┬───────────┘                                          │
+│  L4 ┌──────┴───────────┐                                          │
+│     │  VERIFICATION    │  Validator Network · Slashing · Consensus │
+│     └──────┬───────────┘                                          │
+│  L3 ┌──────┴───────────┐                                          │
+│     │  PRIVACY         │  MPC Sharding · ZK Proofs · DID Control  │
+│     └──────┬───────────┘                                          │
+│  L2 ┌──────┴───────────┐                                          │
+│     │  DATA CAPTURE    │  15-Dim Sensor Fusion · Signal Pipeline  │
+│     └──────┬───────────┘                                          │
+│  L1 ┌──────┴───────────┐                                          │
+│     │  HARDWARE TRUST  │  TEE · Secure Element · Device Keypair  │
+│     └──────────────────┘                                          │
+│                                                                    │
+│  Each layer has a structural defense:                              │
+│  L1 — Device private key never leaves silicon                      │
+│  L2 — 15-dim fusion infeasible to simulate                         │
+│  L3 — ZWF holds <K shares, structurally cannot read user data     │
+│  L4 — Any node can independently verify                            │
 └──────────────────────────────────────────────────────────────────┘
 ```
 
-**The four models tokenize static assets. PoPB tokenizes the one asset that compounds:** ***you, moving.** *  Every squat, every heartbeat, every calorie burned becomes a cryptographically verifiable, privacy-preserving proof — the fifth category Multicoin's framework didn't account for.
+---
+
+## Why This Can't Be Forked
+
+| Attack | Cost | Time | Why It Fails |
+|--------|:----:|:----:|-------------|
+| Software clone | ~$50K | 3mo | ❌ **Protocol-invalid** — no hardware trust root = no valid proof |
+| Deploy competitive hardware | ~$50M+ | 7+yr | ⏳ **Time-uncompressible** — PoPB has 7 years of real sensor data |
+| AI-fake behavior streams | ~$500K | 6mo | ❌ **15-dim cross-sensor consistency check** catches fakes |
+| Fork the open spec | $0 | 1 day | ✅ You can — but the *network* runs on attestations from deployed hardware |
+
+> **Structural moat:** It's not "we do it better." It's "you cannot do it without 7 years of deployed hardware and real sensor data."
 
 ---
 
-## 🏗️ Architecture — Five-Layer Protocol Stack
-
-```
-┌─────────────────────────────────────────────────────────────┐
-│  Layer 5: APPLICATION LAYER                                  │
-│  DID Verification · Insurance Actuarial · Behavior Exchange │
-├─────────────────────────────────────────────────────────────┤
-│  Layer 4: VERIFICATION LAYER                                 │
-│  Proof Aggregation · Validator Network · Slashing           │
-├─────────────────────────────────────────────────────────────┤
-│  Layer 3: PRIVACY LAYER                                      │
-│  MPC Data Sharding · Zero-Knowledge Proofs · DID Sovereignty│
-├─────────────────────────────────────────────────────────────┤
-│  Layer 2: DATA CAPTURE LAYER                                 │
-│  15-Dimensional Sensor Fusion · Signal Processing Pipeline  │
-├─────────────────────────────────────────────────────────────┤
-│  Layer 1: HARDWARE TRUST ROOT                                │
-│  Gate Firmware · Secure Boot · TEE · Device Attestation     │
-└─────────────────────────────────────────────────────────────┘
-```
-
-| Layer | Name | Core Function | Why It Can't Be Bypassed |
-|-------|------|---------------|--------------------------|
-| **L1** | Hardware Trust Root | Device identity + TEE-based attestation | Device private key never leaves secure element. No hardware = no valid proof. |
-| **L2** | Data Capture | 15-dimensional sensor fusion (IMU, BIA, ECG, ToF, IR...) | Cross-modal consistency across 15 sensor dimensions is computationally infeasible to simulate. |
-| **L3** | Privacy | MPC data sharding + ZK-proof wrapping | Raw data is MPC-sharded across independent parties. ZWF holds < K shares — structurally cannot read user data. |
-| **L4** | Verification | Decentralized validator network with staking/slashing | Trustless verification. Any node can independently validate proofs. |
-| **L5** | Application | DID credentials, insurance, behavior marketplace | Applications consume *verified* proofs only. No backdoor. |
-
----
-
-## 🔐 The Moat: Why PoPB Cannot Be Copied
-
-PoPB's competitive advantage is **structural**, not executional:
-
-```
-Hardware Trust Root × Time Uncompressible × Verification Network Effect
-= Unbypassable Competitive Moat
-```
-
-| Attack Vector | Cost | Time | PoPB Defense |
-|---------------|------|------|-------------|
-| Write a software clone | ~$50K | 3 months | **❌ Protocol-level invalid** (no hardware root = no valid proof) |
-| Deploy 500+ gyms + custom hardware | ~$50M+ | **7+ years** | Time is uncompressible |
-| AI-generate synthetic behavior data | ~$500K | 6 months | **15-dim sensor fusion consistency check** catches AI fakes |
-| Build alternative verification standard | ~$10M | 2 years | **Network effect + switching costs** exceed build costs |
-
-> **Investor thesis:** This isn't "we do it better." This is "you *cannot* do it without 7 years of real sensor data and deployed hardware."
-
----
-
-## 📜 License — Open Protocol, Dual License
-
-| Component | License | Rationale |
-|-----------|---------|-----------|
-| **Protocol Specification** (`spec/`) | [MIT](LICENSE) | Anyone can implement, extend, or fork. Maximum openness. |
-| **Reference Implementation** (`verifier/`) | [Apache 2.0](LICENSE) | Patent grant included. Protects ecosystem from patent lawsuits. |
-| **Hardware Design Files** | CERN OHL v2 (Permissive) | Open hardware, attribution required. |
-
-**Patent Non-Assertion Pledge:** ZWISERFIT pledges not to assert patents against conformant implementations of the PoPB protocol.
-
----
-
-## 🚀 Quick Start
+## Quick Start
 
 ```bash
-# Clone the repo
 git clone https://github.com/ZWISERFIT/PoPB.git
 cd PoPB
 
-# Read the specification
+# Read the spec
 cat spec/PoPB-v1.0.0.md
 
-# Run the attestation verifier (proof-of-concept)
+# Run the attestation verifier
 cd verifier
 pip install -r requirements.txt
 python popb_verify.py --proof example_proof.json
@@ -113,44 +124,38 @@ python popb_verify.py --proof example_proof.json
 
 ---
 
-## 📂 Repository Structure
+## Contribute
 
-```
-PoPB/
-├── README.md                    # This file
-├── LICENSE                      # MIT (spec) + Apache 2.0 (ref impl)
-├── spec/
-│   └── PoPB-v1.0.0.md          # Full protocol specification v1.0.0
-└── verifier/
-    ├── README.md                # Attestation Verifier documentation
-    ├── popb_verify.py           # CLI verifier (minimal PoC)
-    ├── requirements.txt         # Python dependencies
-    └── example_proof.json       # Demo proof with simulated device signature
-```
+- **Read the protocol spec:** [`spec/PoPB-v1.0.0.md`](spec/PoPB-v1.0.0.md)
+- **Join the discussion:** [GitHub Discussions](https://github.com/ZWISERFIT/PoPB/discussions)
+- **Submit a proposal:** Open a [PoPB Improvement Proposal](https://github.com/ZWISERFIT/PoPB/issues/new/choose)
+- **Find a task:** [`good first issue`](https://github.com/ZWISERFIT/PoPB/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22) labeled issues
 
 ---
 
-## 🌐 Protocol Status
+## License
 
-| Version | Date | Status |
-|---------|------|--------|
-| **v1.0.0** | 2026-06-02 | ✅ Published — Spec + Reference Verifier |
-| v1.1 | 2026-Q3 | 🔨 ZK-circuit v1 (Groth16), Private testnet |
-| v2.0 | 2027-Q1 | 📋 Mainnet validator network, EigenLayer AVS |
+| Component | License |
+|-----------|---------|
+| Protocol Specification (`spec/`) | [MIT](LICENSE) |
+| Reference Implementation (`verifier/`) | [Apache 2.0](LICENSE) |
+| Hardware Design Files | CERN OHL v2 (Permissive) |
 
----
-
-## 🔗 References
-
-- [Full Protocol Specification v1.0.0](spec/PoPB-v1.0.0.md)
-- [Multicoin Capital — "RWAs Are Just Built Different" (2026.03.19)](https://multicoin.capital/2026/03/19/rwas-are-just-built-different/)
-- [W3C Decentralized Identifiers (DIDs) v1.0](https://www.w3.org/TR/did-core/)
-- [EigenLayer Whitepaper](https://docs.eigenlayer.xyz/)
+**Patent Non-Assertion Pledge:** ZWISERFIT will not assert patents against conformant implementations.
 
 ---
 
-> **PoPB v1.0 — Published 2026-06-02**
+## ⭐ Star · Contribute · Discuss
+
+If this makes you think — **"finally, a way to prove my body's work is real"** — star the repo and join a Discussion. The protocol is open. The verifier runs on your laptop. The hardware runs in Dongguan.
+
+[![Star on GitHub](https://img.shields.io/github/stars/ZWISERFIT/PoPB?style=social)](https://github.com/ZWISERFIT/PoPB/stargazers)
+[![Discussions](https://img.shields.io/github/discussions/ZWISERFIT/PoPB?style=social)](https://github.com/ZWISERFIT/PoPB/discussions)
+
+---
+
+> **PoPB v1.0.0 — Published 2026-06-02**
 >
-> *An open protocol. A shared language. A trustless bridge between the physical and the digital.*
+> *An open protocol. A shared standard. A trustless bridge between the physical world and the digital.*
 >
-> — ZWISERFIT / PoPB Protocol Authors
+> — [ZWISERFIT](https://github.com/ZWISERFIT/ZWISERFIT) · Dongguan · 2026
